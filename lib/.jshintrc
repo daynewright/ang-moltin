@@ -1,0 +1,7 @@
+{
+  "debug": true,
+  "esversion": 6,
+  "globalstrict": true,
+  "predef":  ["document", "console", "$", "$scope" ],
+  "globals": {"app": true, "angular": true, "moltinAuth": true, "Moltin": true}
+}
