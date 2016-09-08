@@ -16,7 +16,7 @@ app.config(function($routeProvider){
     resolve: {
       events: function($q, MoltinAuth){
         return $q((resolve, reject)=> {
-          MoltinAuth()
+          MoltinAuth.moltinAuth()
           .then((moltin)=> moltin.Category.List(null, (events)=> resolve(events)));
         });
       }
@@ -29,13 +29,13 @@ app.config(function($routeProvider){
     resolve: {
       eventName: function($q, MoltinAuth, $route){
         return $q((resolve, reject)=> {
-          MoltinAuth()
+          MoltinAuth.moltinAuth()
           .then((moltin)=> moltin.Category.Get($route.current.params.id, (eventName)=> resolve(eventName)));
         });
       },
       eventPics: function($q, MoltinAuth, $route){
         return $q((resolve, reject)=> {
-          MoltinAuth()
+          MoltinAuth.moltinAuth()
           .then((moltin)=> moltin.Product.List({category: $route.current.params.id}, (eventPics)=> resolve(eventPics)));
         });
       }
@@ -49,19 +49,27 @@ app.config(function($routeProvider){
     resolve: {
       picture: function($q, MoltinAuth, $route){
         return $q((resolve, reject)=> {
-          MoltinAuth()
+          MoltinAuth.moltinAuth()
           .then((moltin)=> moltin.Product.Get($route.current.params.id, (eventName)=> resolve(eventName)));
         });
       },
       moltin: function(MoltinAuth){
-        return MoltinAuth();
+        return MoltinAuth.moltinAuth();
       }
     }
   })
   .when('/cart', {
     templateUrl: 'partials/cart.html',
     controller: 'CartCtrl',
-    activetab: 'cart'
+    activetab: 'cart',
+    resolve: {
+      cart: function(MoltinAuth){
+        return MoltinAuth.moltinAuth().then((moltin)=> moltin.Cart.Contents());
+      },
+      moltin: function(MoltinAuth){
+        return MoltinAuth.moltinAuth();
+      }
+    }
   })
   .otherwise('/', {
     templateUrl: 'partials/login.html',
