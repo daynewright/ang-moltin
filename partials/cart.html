@@ -16,12 +16,12 @@
        <td>{{item.description}}</td>
        <td>{{item.quantity}}</td>
        <td>${{item.price}}</td>
-       <td><button ng-click="delete(item.id)" class="btn btn-danger">X</button></td>
+       <td><button ng-click="delete(item.id, item.uid)" class="btn btn-danger">X</button></td>
      </tr>
    </tbody>
  </table>
 
    <div ng-if="!cart.total_items" class="alert alert-danger">
-    <strong>Your cart is empty!</strong> Click a link above to find products.
+    <strong>Your cart is empty!</strong> Click a link above to find more pictures.
   </div>
 </div>
