@@ -1,0 +1,25 @@
+{
+  "name": "ang-moltin-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daynewright/ang-moltin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daynewright/ang-moltin/issues"
+  },
+  "homepage": "https://github.com/daynewright/ang-moltin#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-jshint": "^2.0.1",
+    "jshint-stylish": "^2.2.1"
+  }
+}
