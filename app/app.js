@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('PicApp', ['ngRoute']);
+var app = angular.module('PicApp', ['ngRoute', 'PicApp.moltin']);
 
 app.config(function($routeProvider){
   $routeProvider
@@ -13,19 +13,50 @@ app.config(function($routeProvider){
     templateUrl: 'partials/all-events.html',
     controller: 'AllEventsCtrl',
     activetab: 'allevents',
-    //need to resolve promises with 'resolve' video: https://youtu.be/gLa2LxMdAPs?t=8m22s
+    resolve: {
+      events: function($q, MoltinAuth){
+        return $q((resolve, reject)=> {
+          MoltinAuth()
+          .then((moltin)=> moltin.Category.List(null, (events)=> resolve(events)));
+        });
+      }
+    }
   })
-  .when('/event', {
+  .when('/event/:id', {
     templateUrl: 'partials/event.html',
     controller: 'EventsCtrl',
-    activetab: 'event'
+    activetab: 'event',
+    resolve: {
+      eventName: function($q, MoltinAuth, $route){
+        return $q((resolve, reject)=> {
+          MoltinAuth()
+          .then((moltin)=> moltin.Category.Get($route.current.params.id, (eventName)=> resolve(eventName)));
+        });
+      },
+      eventPics: function($q, MoltinAuth, $route){
+        return $q((resolve, reject)=> {
+          MoltinAuth()
+          .then((moltin)=> moltin.Product.List({category: $route.current.params.id}, (eventPics)=> resolve(eventPics)));
+        });
+      }
+    }
 
   })
-  .when('/picture', {
+  .when('/picture/:id', {
     templateUrl: 'partials/picture.html',
     controller: 'PictureCtrl',
-    activetab: 'picture'
-
+    activetab: 'picture',
+    resolve: {
+      picture: function($q, MoltinAuth, $route){
+        return $q((resolve, reject)=> {
+          MoltinAuth()
+          .then((moltin)=> moltin.Product.Get($route.current.params.id, (eventName)=> resolve(eventName)));
+        });
+      },
+      moltin: function(MoltinAuth){
+        return MoltinAuth();
+      }
+    }
   })
   .when('/cart', {
     templateUrl: 'partials/cart.html',

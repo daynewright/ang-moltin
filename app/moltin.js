@@ -1,3 +1,3 @@
 'use strict';
 
-let moltinAuth = angular.module('PicApp.moltin', []);
+let moltinModule = angular.module('PicApp.moltin', []);
