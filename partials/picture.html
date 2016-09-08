@@ -1,1 +1,7 @@
-<h1>PICTURE</h1>
+<h1>{{picture.title}}</h1>
+<div ng-bind="picture.description"></div>
+
+<strong>{{picture.price.value}}</strong>
+
+<button ng-if="!addStatus" ng-click="addCart()" class="btn btn-primary">Add to Cart</button>
+<button ng-if="addStatus" ng-class="{'btn-success': addStatus === 'Success!', 'btn-warning': addStatus === 'Adding to cart...'}"class="btn btn-warning">{{addStatus}}</button>
