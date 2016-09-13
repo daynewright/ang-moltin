@@ -11,6 +11,7 @@ app.controller('CartCtrl', function($scope, $route, cart, moltin, $location){
   $scope.delete = (id, uid)=> {
     moltin.Cart.Remove(id, function(){
       delete cart.contents[uid];
+      console.log('deleted', id );
       if(Object.keys(cart.contents).length === 0){
           cart.total_items = 0;
       }
